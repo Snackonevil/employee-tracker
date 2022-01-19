@@ -1,8 +1,6 @@
 const inquirer = require("inquirer");
 const { db } = require("./queries");
 
-const test = [1, 2, 3];
-
 const deptList = async () => {
     let [list] = await db.query({
         sql: "SELECT departments.name FROM departments",
@@ -38,20 +36,20 @@ const deptPrompt = [
     },
     {
         type: "input",
-        name: "dept",
+        name: "addDept",
         message: "Enter name of department:",
         when: ({ choice }) => choice == "Add Department",
     },
     {
         type: "list",
-        name: "dept",
+        name: "updateDept",
         message: "Which department would you like to UPDATE?:",
         when: ({ choice }) => choice == "Update Department",
         choices: deptList,
     },
     {
         type: "list",
-        name: "dept",
+        name: "deleteDept",
         message: "Which department would you like to DELETE?:",
         when: ({ choice }) => choice == "Delete Department",
         choice: deptList,

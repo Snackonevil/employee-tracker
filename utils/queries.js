@@ -16,6 +16,10 @@ const queryDepartments = {
         let [departments] = await db.query(`SELECT * FROM departments`);
         console.table(departments);
     },
+    add: async deptName => {
+        await db.query(`INSERT INTO departments
+        VALUES (id, ${deptName})`);
+    },
 };
 
 const queryRoles = {
