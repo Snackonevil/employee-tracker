@@ -1,38 +1,32 @@
 const mysql = require("mysql2");
 const cTable = require("console.table");
-const {
-    mainMenu,
-    deptMenu,
-    roleMenu,
-    employeeMenu,
-} = require("./utils/prompts");
+const { mainMenu, deptMenu, roleMenu, employeeMenu } = require("./utils/menus");
 
-const {
-    db,
-    queryDepartments,
-    queryRoles,
-    queryEmployees,
-} = require("./utils/queries");
+const dbQuery = require("./utils/queries");
+
+let process = true;
 
 async function init() {
-    let { choice } = await mainMenu();
-    console.log(choice);
-    switch (choice) {
-        case "Departments":
-            queryDepartments.showAll();
-            await deptMenu;
-            break;
-        case "Roles":
-            queryRoles.showAll();
-            await roleMenu();
-            break;
-        case "Employees":
-            queryEmployees.showAll();
-            await employeeMenu();
-            break;
-        case "Exit":
-            db.end();
-            return;
+    while (process === true) {
+        let { choice } = await mainMenu();
+        switch (choice) {
+            case "Departments":
+                await dbQuery.Departments.showAll();
+                await deptMenu();
+                break;
+            case "Roles":
+                queryRoles.showAll();
+                await roleMenu();
+                break;
+            case "Employees":
+                queryEmployees.showAll();
+                await employeeMenu();
+                break;
+            case "Exit":
+                dbQuery.db.end();
+                process = false;
+                return;
+        }
     }
 }
 
