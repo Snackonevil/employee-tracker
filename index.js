@@ -1,5 +1,6 @@
 const mysql = require("mysql2");
 const cTable = require("console.table");
+const { menu } = require("./utils/prompts");
 
 async function connectDb() {
     const db = await mysql.createConnection({
@@ -12,4 +13,9 @@ async function connectDb() {
     console.table(employee);
 }
 
-connectDb();
+async function init() {
+    let choice = await menu();
+    console.log(choice);
+}
+
+init();
