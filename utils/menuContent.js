@@ -17,9 +17,9 @@ const main = [
         message: "Select an option",
         choices: [
             new inquirer.Separator(),
-            "Departments",
-            "Roles",
-            "Employees",
+            "View Departments",
+            "View Roles",
+            "View Employees",
             new inquirer.Separator(),
             "Exit",
             new inquirer.Separator(),

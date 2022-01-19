@@ -10,15 +10,15 @@ async function init() {
     while (process === true) {
         let { choice } = await mainMenu();
         switch (choice) {
-            case "Departments":
+            case "View Departments":
                 await dbQuery.Departments.showAll();
                 await deptMenu();
                 break;
-            case "Roles":
+            case "View Roles":
                 queryRoles.showAll();
                 await roleMenu();
                 break;
-            case "Employees":
+            case "View Employees":
                 queryEmployees.showAll();
                 await employeeMenu();
                 break;
