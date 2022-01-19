@@ -6,8 +6,10 @@ const {
     employeePrompt,
 } = require("./menuContent");
 
+const dbQuery = require("./queries");
+
 async function handleAdd(dept) {
-    console.log(dept);
+    await dbQuery.Departments.add(dept);
 }
 
 async function mainMenu() {

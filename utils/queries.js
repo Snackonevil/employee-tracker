@@ -11,25 +11,25 @@ const connect = mysql.createConnection({
 
 const db = connect.promise();
 
-const queryDepartments = {
+const Departments = {
     showAll: async () => {
         let [departments] = await db.query(`SELECT * FROM departments`);
         console.table(departments);
     },
     add: async deptName => {
         await db.query(`INSERT INTO departments
-        VALUES (id, ${deptName})`);
+        VALUES (id, '${deptName}')`);
     },
 };
 
-const queryRoles = {
+const Roles = {
     showAll: async () => {
         let [roles] = await db.query(`SELECT * FROM roles`);
         console.table(roles);
     },
 };
 
-const queryEmployees = {
+const Employees = {
     showAll: async () => {
         let [employees] = await db.query(`SELECT * FROM employees`);
         console.table(employees);
@@ -38,7 +38,7 @@ const queryEmployees = {
 
 module.exports = {
     db,
-    queryDepartments,
-    queryRoles,
-    queryEmployees,
+    Departments,
+    Roles,
+    Employees,
 };
