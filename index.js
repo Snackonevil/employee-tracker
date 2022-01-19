@@ -1,21 +1,24 @@
 const mysql = require("mysql2");
 const cTable = require("console.table");
-const { menu } = require("./utils/prompts");
+const { mainMenu } = require("./utils/prompts");
 
 async function connectDb() {
-    const db = await mysql.createConnection({
+    const connect = await mysql.createConnection({
         host: "localhost",
         user: "root",
         password: "MySqlServer",
         database: "employees",
     });
-    const [employee] = await db.promise().query("SELECT * FROM employee");
-    console.table(employee);
+    const db = connect.promise();
+    let choice = await mainMenu();
+
+    const [employees] = await db.query("SELECT * FROM employee");
+    const [departments] = await db.query("SELECT * FROM department");
+    const [roles] = await db.query("SELECT * FROM role");
 }
 
 async function init() {
-    let choice = await menu();
-    console.log(choice);
+    await connectDb();
 }
 
 init();

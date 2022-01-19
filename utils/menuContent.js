@@ -40,12 +40,12 @@ const addRole = [
     {
         type: "input",
         name: "role.salary",
-        message: `${answer.name.role}\'s SALARY:`,
+        message: answers => `${answers.role.name}\'s SALARY:`,
     },
     {
         type: "input",
         name: "role.department",
-        message: `${answer.name.role}\'s DEPARTMENT:`,
+        message: answers => `${answers.role.department}\'s DEPARTMENT:`,
     },
 ];
 
@@ -63,12 +63,14 @@ const addEmployee = [
     {
         type: "input",
         name: "employee.role",
-        message: "Enter Employee's Role",
+        message: answer =>
+            `What is ${answer.employee.firstName} ${answer.employee.lastName}\'s role?:'}`,
     },
     {
-        type: "confirm",
+        type: "input",
         name: "employee.manager",
-        message: "Is this employee a manager?",
+        message: answer =>
+            `Who is ${answer.employee.firstName} ${answer.employee.lastName}\'s manager? Enter their ID (if none, leave blank):`,
     },
 ];
 
