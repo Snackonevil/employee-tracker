@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const Choices = require("inquirer/lib/objects/choices");
 const {
     main,
     deptPrompt,
@@ -10,6 +11,10 @@ const dbQuery = require("./queries");
 
 async function handleAdd(dept) {
     await dbQuery.Departments.add(dept);
+}
+
+async function handleDelete(dept) {
+    await dbQuery.Departments.delete(dept);
 }
 
 async function mainMenu() {
@@ -26,7 +31,9 @@ async function deptMenu() {
             await handleUpdate();
             break;
         case "Delete Department":
-            await handleDelete();
+            data.confirm == true ? await handleDelete(data.deleteDept) : "";
+            break;
+        case "BACK":
             break;
     }
 }

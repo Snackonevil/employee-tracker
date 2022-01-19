@@ -19,6 +19,11 @@ const Departments = {
     add: async deptName => {
         await db.query(`INSERT INTO departments
         VALUES (id, '${deptName}')`);
+        console.log(`Department ${deptName} ADDED`);
+    },
+    delete: async deptName => {
+        await db.query(`DELETE FROM departments WHERE name='${deptName}'`);
+        console.log(`Department ${deptName} DELETED`);
     },
 };
 

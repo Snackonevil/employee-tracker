@@ -32,7 +32,13 @@ const deptPrompt = [
         type: "list",
         name: "choice",
         message: "What would you like to do?:",
-        choices: ["Add Department", "Update Department", "Delete Department"],
+        choices: [
+            "Add Department",
+            "Update Department",
+            "Delete Department",
+            new inquirer.Separator(),
+            "BACK",
+        ],
     },
     {
         type: "input",
@@ -52,7 +58,14 @@ const deptPrompt = [
         name: "deleteDept",
         message: "Which department would you like to DELETE?:",
         when: ({ choice }) => choice == "Delete Department",
-        choice: deptList,
+        choices: deptList,
+    },
+    {
+        type: "confirm",
+        name: "confirm",
+        message: ({ deleteDept }) =>
+            `Are you sure you would like to DELETE ${deleteDept} from Departments?`,
+        when: ({ choice }) => choice == "Delete Department",
     },
 ];
 
