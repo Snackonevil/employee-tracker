@@ -1,9 +1,21 @@
 const inquirer = require("inquirer");
-const { mainMenu } = require("./menus");
+const { main, addDept, addRole, addEmployee } = require("./menuContent");
 
-async function menu() {
-    let choice = await inquirer.prompt(mainMenu);
+async function mainMenu() {
+    let choice = await inquirer.prompt(main);
+    return choice;
+}
+async function deptMenu() {
+    let choice = await inquirer.prompt(addDept);
+    return choice;
+}
+async function roleMenu() {
+    let choice = await inquirer.prompt(addRole);
+    return choice;
+}
+async function employeeMenu() {
+    let choice = await inquirer.prompt(addEmployee);
     return choice;
 }
 
-module.exports = { menu };
+module.exports = { mainMenu, deptMenu, roleMenu, employeeMenu };
