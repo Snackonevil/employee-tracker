@@ -1,6 +1,16 @@
 const inquirer = require("inquirer");
 const { db } = require("./queries");
 
+const test = [1, 2, 3];
+
+const deptList = async () => {
+    let [list] = await db.query({
+        sql: "SELECT departments.name FROM departments",
+        rowAsArray: true,
+    });
+    return list;
+};
+
 const main = [
     {
         type: "list",
@@ -31,6 +41,20 @@ const deptPrompt = [
         name: "dept",
         message: "Enter name of department:",
         when: ({ choice }) => choice == "Add Department",
+    },
+    {
+        type: "list",
+        name: "dept",
+        message: "Which department would you like to UPDATE?:",
+        when: ({ choice }) => choice == "Update Department",
+        choices: deptList,
+    },
+    {
+        type: "list",
+        name: "dept",
+        message: "Which department would you like to DELETE?:",
+        when: ({ choice }) => choice == "Delete Department",
+        choice: deptList,
     },
 ];
 
@@ -79,4 +103,4 @@ const addEmployee = [
     },
 ];
 
-module.exports = { main, addDept, addRole, addEmployee };
+module.exports = { main, deptPrompt };
