@@ -1,28 +1,39 @@
 const mysql = require("mysql2");
 const cTable = require("console.table");
-const { mainMenu } = require("./utils/prompts");
-const Employee = require("./lib/Employee");
+const {
+    mainMenu,
+    deptMenu,
+    roleMenu,
+    employeeMenu,
+} = require("./utils/prompts");
 
-async function connectDb() {
-    const connect = await mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "MySqlServer",
-        database: "mycompany",
-    });
-    const db = connect.promise();
-    let choice = await mainMenu();
-    if (choice) {
-        const test = new Employee("kevin", "lacson", "2", "3");
-        test.insert();
-    }
-    const [employees] = await db.query("SELECT * FROM employee");
-    const [departments] = await db.query("SELECT * FROM department");
-    const [roles] = await db.query("SELECT * FROM role");
-}
+const {
+    db,
+    queryDepartments,
+    queryRoles,
+    queryEmployees,
+} = require("./utils/queries");
 
 async function init() {
-    await connectDb();
+    let { choice } = await mainMenu();
+    console.log(choice);
+    switch (choice) {
+        case "Departments":
+            queryDepartments.showAll();
+            await deptMenu;
+            break;
+        case "Roles":
+            queryRoles.showAll();
+            await roleMenu();
+            break;
+        case "Employees":
+            queryEmployees.showAll();
+            await employeeMenu();
+            break;
+        case "Exit":
+            db.end();
+            return;
+    }
 }
 
 init();

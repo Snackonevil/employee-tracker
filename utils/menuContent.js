@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const { db } = require("./queries");
 
 const main = [
     {
@@ -7,15 +8,10 @@ const main = [
         name: "choice",
         message: "Select an option",
         choices: [
-            "View All Departments",
-            "Add Department",
             new inquirer.Separator(),
-            "View All Roles",
-            "Add a Role",
-            new inquirer.Separator(),
-            "View All Employees",
-            "Add an Employee",
-            "Update an Employee Role",
+            "Departments",
+            "Roles",
+            "Employees",
             new inquirer.Separator(),
             "Exit",
             new inquirer.Separator(),
@@ -23,13 +19,22 @@ const main = [
     },
 ];
 
-const addDept = [
+const deptPrompt = [
+    {
+        type: "list",
+        name: "choice",
+        message: "What would you like to do?:",
+        choices: ["Add Department", "Update Department", "Delete Department"],
+    },
     {
         type: "input",
         name: "dept",
         message: "Enter name of department:",
+        when: ({ choice }) => choice == "Add Department",
     },
 ];
+
+const addDept = [{}];
 
 const addRole = [
     {
