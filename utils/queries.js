@@ -1,11 +1,14 @@
 const mysql = require("mysql2");
 
-// SELECT employee.id, employee.first_name, employee.last_name, role.title FROM employee, role;
-
-//Joining employee names with manager names
-// SELECT CONCAT (a.first_name, + ' ', a.last_name) AS 'Name', CONCAT(b.first_name, + ' ', b.last_name) as 'Manager'
-// FROM employees A, employees B
-// WHERE a.manager_id = b.id;
+const Black = "\u001b[30m";
+const Red = "\u001b[31m";
+const Green = "\u001b[32m";
+const Yellow = "\u001b[33;1m";
+const Blue = "\u001b[34m";
+const Magenta = "\u001b[35m";
+const Cyan = "\u001b[36m";
+const White = "\u001b[37m";
+const Reset = "\u001b[0m";
 
 // View employees by manager
 // SELECT CONCAT (a.first_name, + ' ', a.last_name) AS 'Employee',
@@ -29,9 +32,9 @@ const Departments = {
         //     rowAsArray: true,
         // });
         let [departments] = await db.query(
-            "SELECT departments.title FROM departments"
+            "SELECT departments.id AS 'ID', departments.title AS 'Name' FROM departments"
         );
-        console.table(departments);
+        console.table(Green, departments);
         return departments;
     },
 
