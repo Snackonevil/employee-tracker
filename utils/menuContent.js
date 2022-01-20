@@ -18,7 +18,7 @@ const main = [
         type: "list",
         pageSize: 12,
         name: "choice",
-        message: "Select an option",
+        message: "Select an option:",
         choices: [
             new inquirer.Separator(),
             "View Departments",
@@ -37,11 +37,13 @@ const deptPrompt = [
         name: "status",
         message: "What would you like to do?:",
         choices: [
+            new inquirer.Separator(),
             "Add Department",
             "Update Department",
             "Delete Department",
             new inquirer.Separator(),
             "BACK",
+            new inquirer.Separator(),
         ],
     },
     {
@@ -81,11 +83,13 @@ const rolePrompt = [
         name: "status",
         message: "What would you like to do?:",
         choices: [
+            new inquirer.Separator(),
             "Add Role",
             "Update Role",
             "Delete Role",
             new inquirer.Separator(),
             "BACK",
+            new inquirer.Separator(),
         ],
     },
     {
@@ -114,11 +118,13 @@ const employeePrompt = [
         name: "status",
         message: "What would you like to do?",
         choices: [
+            new inquirer.Separator(),
             "Add Employee",
             "Update Employee",
             "Delete Employee",
             new inquirer.Separator(),
             "BACK",
+            new inquirer.Separator(),
         ],
     },
     {
