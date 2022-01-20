@@ -31,6 +31,7 @@ async function deptMenu() {
             break;
     }
 }
+
 async function roleMenu() {
     let data = await inquirer.prompt(rolePrompt);
     switch (data.status) {
@@ -54,10 +55,10 @@ async function employeeMenu() {
     let data = await inquirer.prompt(employeePrompt);
     switch (data.status) {
         case "Add Employee":
-            await console.log(data.firstName, data.lastName);
+            await console.log(data.firstName, data.lastName); // missing parameters
             break;
         case "Update Employee":
-            await handleUpdateEmployee();
+            // await update employee
             break;
         case "Delete Employee":
             data.confirm == true

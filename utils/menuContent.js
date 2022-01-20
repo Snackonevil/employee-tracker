@@ -1,15 +1,10 @@
 const inquirer = require("inquirer");
 const cTable = require("console.table");
-const { db } = require("./queries");
+const dbQuery = require("./queries");
 
-const deptList = async () => {
-    let [list] = await db.query({
-        sql: "SELECT departments.name FROM departments",
-        rowAsArray: true,
-    });
-    return list;
-};
+let deptList = async () => await dbQuery.Departments.getAllAsArray();
 
+// need to create array
 const employeeList = async () => {
     let [list] = await db.query({
         sql: "SELECT DISTINCT employees.id AS 'ID', CONCAT(first_name, + ' ', last_name) AS 'Name', roles.title AS 'Role' FROM employees, roles WHERE roles.id = employees.role_id ORDER BY employees.id",
@@ -102,13 +97,13 @@ const rolePrompt = [
     {
         type: "input",
         name: "salary",
-        message: answers => `${answers.role.name}\'s SALARY:`,
+        message: answers => `${answers.name}\'s SALARY:`,
         // when add
     },
     {
         type: "input",
         name: "department",
-        message: answers => `${answers.role.department}\'s DEPARTMENT:`,
+        message: answers => `${answers.name}\'s DEPARTMENT:`,
         // when add
     },
 ];
