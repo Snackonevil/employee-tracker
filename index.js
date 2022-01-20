@@ -15,11 +15,11 @@ async function init() {
                 await deptMenu();
                 break;
             case "View Roles":
-                queryRoles.showAll();
+                await dbQuery.Roles.showAll();
                 await roleMenu();
                 break;
             case "View Employees":
-                queryEmployees.showAll();
+                await dbQuery.Employees.showAll();
                 await employeeMenu();
                 break;
             case "Exit":
