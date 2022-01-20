@@ -80,21 +80,36 @@ const deptPrompt = [
 
 const addDept = [{}];
 
-const addRole = [
+const rolePrompt = [
+    {
+        type: "list",
+        name: "status",
+        message: "What would you like to do?:",
+        choices: [
+            "Add Role",
+            "Update Role",
+            "Delete Role",
+            new inquirer.Separator(),
+            "BACK",
+        ],
+    },
     {
         type: "input",
-        name: "role.name",
+        name: "name",
         message: "Enter NAME of role:",
+        // when add
     },
     {
         type: "input",
-        name: "role.salary",
+        name: "salary",
         message: answers => `${answers.role.name}\'s SALARY:`,
+        // when add
     },
     {
         type: "input",
-        name: "role.department",
+        name: "department",
         message: answers => `${answers.role.department}\'s DEPARTMENT:`,
+        // when add
     },
 ];
 
@@ -139,4 +154,4 @@ const employeePrompt = [
     },
 ];
 
-module.exports = { main, deptPrompt, employeePrompt };
+module.exports = { main, deptPrompt, rolePrompt, employeePrompt };

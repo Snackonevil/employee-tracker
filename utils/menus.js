@@ -20,7 +20,7 @@ async function deptMenu() {
             await dbQuery.Departments.add(data.addDept);
             break;
         case "Update Department":
-            await handleUpdateDept();
+            // await handle update
             break;
         case "Delete Department":
             data.confirm == true
@@ -32,9 +32,24 @@ async function deptMenu() {
     }
 }
 async function roleMenu() {
-    let choice = await inquirer.prompt(rolePrompt);
-    return choice;
+    let data = await inquirer.prompt(rolePrompt);
+    switch (data.status) {
+        case "Add Role":
+            await dbQuery.Roles.add(data.addRole); // doesn't exist yet
+            break;
+        case "Update Role":
+            // await update role
+            break;
+        case "Delete Rolet":
+            data.confirm == true
+                ? await dbQuery.Roles.delete(data.deleteRole) // doesn't exist yet
+                : "";
+            break;
+        case "BACK":
+            break;
+    }
 }
+
 async function employeeMenu() {
     let data = await inquirer.prompt(employeePrompt);
     switch (data.status) {
