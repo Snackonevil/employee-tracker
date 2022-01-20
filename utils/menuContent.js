@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const cTable = require("console.table");
 const { db } = require("./queries");
 
 const deptList = async () => {
@@ -7,6 +8,14 @@ const deptList = async () => {
         rowAsArray: true,
     });
     return list;
+};
+
+const employeeList = async () => {
+    let [list] = await db.query({
+        sql: "SELECT DISTINCT employees.id AS 'ID', CONCAT(first_name, + ' ', last_name) AS 'Name', roles.title AS 'Role' FROM employees, roles WHERE roles.id = employees.role_id ORDER BY employees.id",
+        rowAsArray: true,
+    });
+    console.table(list);
 };
 
 const main = [
