@@ -1,7 +1,7 @@
 const mysql = require("mysql2");
 
 const Black = "\u001b[30m";
-const Red = "\u001b[31m";
+const Red = "\u001b[31;1m";
 const Green = "\u001b[32;1m";
 const Yellow = "\u001b[33;1m";
 const Blue = "\u001b[34m";
@@ -93,7 +93,21 @@ const Employees = {
         console.table(Blue, employees);
     },
 
-    showByManager: async () => {
+    // EMPLOYEE ARRAY (First name, Last name, Title ordered by ID)
+    getAllAsArray: async () => {
+        let [employees] = await db.query(`SELECT employees.id AS 'ID',
+        CONCAT(employees.first_name, + ' ', + employees.last_name) AS 'Employee',
+        roles.title as "Title"
+        FROM employees
+        LEFT JOIN roles ON employees.role_id = roles.id
+        ORDER BY employees.id;`);
+        let array = employees.map(
+            item => `ID: ${item.ID}, ${item.Employee}, ${item.Title}`
+        );
+        return array;
+    },
+
+    showManager: async () => {
         let [employees] = await db.query(`SELECT a.id AS 'ID',
         CONCAT (a.first_name, + ' ', a.last_name) AS 'Employee',
         CONCAT(b.first_name, + ' ', b.last_name) as 'Manager'
@@ -103,12 +117,25 @@ const Employees = {
         console.table(employees);
     },
 
+    showByDepartment: async department => {
+        let [employees] =
+            await db.query(`SELECT CONCAT(employees.first_name, + ' ', + employees.last_name) AS 'Employee',
+        roles.title as "Title"
+        FROM employees
+        LEFT JOIN roles ON employees.role_id = roles.id
+        LEFT JOIN departments ON roles.department_id = departments.id
+        WHERE departments.title = '${department}';`);
+        console.log(`${department} department`);
+        console.table(employees);
+    },
+
     add: async (firstName, lastName, role, manager) => {
         // will role and manager be taken in by ID or name?
     },
 
-    delete: async () => {
-        // needs to take in parameter. name? delete directly by name, or name into ID?
+    delete: async name => {
+        await db.query(`DELETE FROM employees WHERE name='${name}'`);
+        console.log(Red, `${name}\'s employee records were DELETED`);
     },
 };
 

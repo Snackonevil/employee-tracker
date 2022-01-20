@@ -3,15 +3,9 @@ const cTable = require("console.table");
 const dbQuery = require("./queries");
 
 let deptList = async () => await dbQuery.Departments.getAllAsArray();
+let empList = async () => await dbQuery.Employees.getAllAsArray();
 
-// need to create array
-const employeeList = async () => {
-    let [list] = await db.query({
-        sql: "SELECT DISTINCT employees.id AS 'ID', CONCAT(first_name, + ' ', last_name) AS 'Name', roles.title AS 'Role' FROM employees, roles WHERE roles.id = employees.role_id ORDER BY employees.id",
-        rowAsArray: true,
-    });
-    console.table(list);
-};
+empList();
 
 const main = [
     {
@@ -48,20 +42,24 @@ const deptPrompt = [
     },
     {
         type: "input",
-        name: "addDept",
+        name: "dept",
         message: "Enter name of department:",
         when: ({ status }) => status == "Add Department",
     },
+    // ---------------------------------------------------------
+    // --------------------- IF UPDATE -------------------------
     {
         type: "list",
-        name: "updateDept",
+        name: "dept",
         message: "Which department would you like to UPDATE?:",
         when: ({ status }) => status == "Update Department",
         choices: deptList,
     },
+    // ---------------------------------------------------------
+    // ---------------------- IF DELETE ------------------------
     {
         type: "list",
-        name: "deleteDept",
+        name: "dept",
         message: "Which department would you like to DELETE?:",
         when: ({ status }) => status == "Delete Department",
         choices: deptList,
@@ -74,8 +72,6 @@ const deptPrompt = [
         when: ({ status }) => status == "Delete Department",
     },
 ];
-
-const addDept = [{}];
 
 const rolePrompt = [
     {
@@ -110,6 +106,13 @@ const rolePrompt = [
         message: answers => `${answers.name}\'s DEPARTMENT:`,
         // when add
     },
+    // ---------------------------------------------------------
+    // --------------------- IF UPDATE -------------------------
+    // insert prompts
+
+    // ---------------------------------------------------------
+    // ---------------------- IF DELETE ------------------------
+    // insert prompts
 ];
 
 const employeePrompt = [
@@ -153,6 +156,13 @@ const employeePrompt = [
             `Who is ${answer.firstName} ${answer.lastName}\'s manager? Enter their ID (if none, leave blank):`,
         when: ({ status }) => status == "Add Employee",
     },
+    // ---------------------------------------------------------
+    // --------------------- IF UPDATE -------------------------
+    // insert prompts
+
+    // ---------------------------------------------------------
+    // ---------------------- IF DELETE ------------------------
+    // insert prompts
 ];
 
 module.exports = { main, deptPrompt, rolePrompt, employeePrompt };
