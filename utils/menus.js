@@ -1,4 +1,9 @@
+// This files has the functions that handle the menus
+
+// Bring in inquirer module
 const inquirer = require("inquirer");
+
+// Import prompt content for inquirer
 const {
     main,
     deptPrompt,
@@ -6,8 +11,10 @@ const {
     employeePrompt,
 } = require("./menuContent");
 
+// Import query methods for objects
 const dbQuery = require("./queries");
 
+// Colors for funsies
 const Red = "\u001b[31;1m";
 const Green = "\u001b[32;1m";
 const Yellow = "\u001b[33;1m";
@@ -18,6 +25,7 @@ async function mainMenu() {
     return choice;
 }
 
+// Function handling Departments menu
 async function deptMenu() {
     let data = await inquirer.prompt(deptPrompt);
     switch (data.status) {
@@ -29,7 +37,7 @@ async function deptMenu() {
             );
             break;
         case "Update Department":
-            // await handle update
+            // add await handle update
             console.log(Yellow, `\n---${data.dept} department UPDATED ---\n`);
             break;
         case "Delete Department":
@@ -48,6 +56,7 @@ async function deptMenu() {
     }
 }
 
+// Function handling Roles menu
 async function roleMenu() {
     let data = await inquirer.prompt(rolePrompt);
     switch (data.status) {
@@ -64,7 +73,7 @@ async function roleMenu() {
                 await dbQuery.Roles.delete(data.role); // doesn't exist yet
                 console.log(
                     Red,
-                    `\n---${data.role} DELETED to ROLES table---\n`
+                    `\n---${data.role} DELETED from ROLES table---\n`
                 );
             } else {
                 return;
@@ -75,18 +84,24 @@ async function roleMenu() {
     }
 }
 
+// Function handling Employees menu
 async function employeeMenu() {
-    let data = await inquirer.prompt(employeePrompt);
-    switch (data.status) {
+    let { status, firstName, lastName, role, manager, confirm } =
+        await inquirer.prompt(employeePrompt);
+    switch (status) {
         case "Add Employee":
-            let managerId = data.manager.split(" ")[1];
-            console.log(data.firstName, data.lastName, data.role, managerId);
+            let managerId = manager.replaceAll(",", "").split(" ")[1];
+            let roleId = role.replaceAll(",", "").split(" ")[1];
+            dbQuery.Employees.add(firstName, lastName, roleId, managerId);
+            console.log(Green, `-----------------------------\n`);
+            console.log(Green, `${firstName} ${lastName} ADDED to employees\n`);
+            console.log(Green, `-----------------------------\n`);
             break;
         case "Update Employee":
             // await update method
             break;
         case "Delete Employee":
-            data.confirm == true;
+            confirm == true;
             // ? // delete method
             // : "";
             break;

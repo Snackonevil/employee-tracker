@@ -9,7 +9,7 @@ const dbQuery = require("./utils/queries");
 
 // State of app
 let process = true;
-
+const Yellow = "\u001b[33;1m";
 // Entry function
 async function init() {
     while (process === true) {
@@ -29,6 +29,7 @@ async function init() {
                 break;
             case "Exit":
                 dbQuery.db.end();
+                console.log(Yellow, "----- Goodbye ------\u001b[0m");
                 process = false;
                 return;
         }
@@ -36,4 +37,5 @@ async function init() {
 }
 
 // Initialize app
+console.log(Yellow, "Welcome! Let's take care of business\u001b[0m");
 init();

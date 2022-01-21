@@ -143,8 +143,9 @@ const Employees = {
     },
 
     // INSERT new employee INTO employees table
-    add: async (firstName, lastName, role, manager) => {
-        // will role and manager be taken in by ID or name?
+    add: async (firstName, lastName, roleId, managerId) => {
+        await db.query(`INSERT INTO employees (id, first_name, last_name, role_id, manager_id)
+        VALUES (id, '${firstName}', '${lastName}', ${roleId}, ${managerId});`);
     },
 
     // DELETE employee by specified name

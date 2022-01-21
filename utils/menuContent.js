@@ -1,10 +1,13 @@
+// This file has the content for the inquirer prompts
+
+// Bringing inquirer module
 const inquirer = require("inquirer");
 const cTable = require("console.table");
+
+// Import query methods for objects
 const dbQuery = require("./queries");
 
-const reset = "\u001b[0m";
-const bold = "\u001b[0;1m";
-
+// Methods to pull lists as arrays
 const deptList = async () => await dbQuery.Departments.getAllAsArray();
 const empList = async () => await dbQuery.Employees.getAllAsArray();
 const roleList = async () => await dbQuery.Roles.getAllAsArray();
@@ -121,7 +124,7 @@ const employeePrompt = [
     {
         type: "list",
         name: "status",
-        message: "What would you like to do?",
+        message: `What would you like to do?`,
         choices: [
             new inquirer.Separator(),
             "Add Employee",
@@ -164,7 +167,15 @@ const employeePrompt = [
         type: "confirm",
         name: "confirm",
         message: answer =>
-            `Add ${answer.firstName} ${answer.lastName} as ${answer.role} with ${answer.manager} as their manager?`,
+            `Add ${answer.firstName.toUpperCase()} ${answer.lastName.toUpperCase()} as a ${answer.role
+                .split(" ")[2]
+                .toUpperCase()} with ${answer.manager
+                .replaceAll(",", "")
+                .split(" ")[2]
+                .toUpperCase()} ${answer.manager
+                .replaceAll(",", "")
+                .split(" ")[3]
+                .toUpperCase()} as their MANAGER?`,
         when: ({ status }) => status == "Add Employee",
     },
     // ---------------------------------------------------------
