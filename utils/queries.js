@@ -10,13 +10,6 @@ const Cyan = "\u001b[36m";
 const White = "\u001b[37m";
 const Reset = "\u001b[0m";
 
-// View employees by manager
-// SELECT CONCAT (a.first_name, + ' ', a.last_name) AS 'Employee',
-// CONCAT(b.first_name, + ' ', b.last_name) as 'Manager'
-// FROM employees a, employees b
-// WHERE a.manager_id = b.id
-// ORDER BY b.last_name;
-
 const connect = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -74,7 +67,7 @@ const Roles = {
     },
 
     delete: async () => {
-        // needs to take in parameter. name? delete directly by name, or name into ID?
+        // needs to take in parameter from list
     },
 };
 
