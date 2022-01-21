@@ -79,7 +79,8 @@ async function employeeMenu() {
     let data = await inquirer.prompt(employeePrompt);
     switch (data.status) {
         case "Add Employee":
-            // await add method
+            let managerId = data.manager.split(" ")[1];
+            console.log(data.firstName, data.lastName, data.role, managerId);
             break;
         case "Update Employee":
             // await update method

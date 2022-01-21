@@ -2,10 +2,12 @@ const inquirer = require("inquirer");
 const cTable = require("console.table");
 const dbQuery = require("./queries");
 
-let deptList = async () => await dbQuery.Departments.getAllAsArray();
-let empList = async () => await dbQuery.Employees.getAllAsArray();
+const reset = "\u001b[0m";
+const bold = "\u001b[0;1m";
 
-empList();
+const deptList = async () => await dbQuery.Departments.getAllAsArray();
+const empList = async () => await dbQuery.Employees.getAllAsArray();
+const roleList = async () => await dbQuery.Roles.getAllAsArray();
 
 const main = [
     {
@@ -133,27 +135,36 @@ const employeePrompt = [
     {
         type: "input",
         name: "firstName",
-        message: "Enter Employee's First Name",
+        message: "Enter Employee's First Name:",
         when: ({ status }) => status == "Add Employee",
     },
     {
         type: "input",
         name: "lastName",
-        message: "Enter Employee's Last Name",
+        message: "Enter Employee's Last Name:",
         when: ({ status }) => status == "Add Employee",
     },
     {
-        type: "input",
+        type: "list",
         name: "role",
         message: answer =>
-            `What is ${answer.firstName} ${answer.lastName}\'s role?:'}`,
+            `What is ${answer.firstName} ${answer.lastName}\'s role?:`,
+        choices: roleList,
         when: ({ status }) => status == "Add Employee",
     },
     {
-        type: "input",
+        type: "list",
         name: "manager",
         message: answer =>
-            `Who is ${answer.firstName} ${answer.lastName}\'s manager? Enter their ID (if none, leave blank):`,
+            `Who is ${answer.firstName} ${answer.lastName}\'s manager?:`,
+        choices: empList,
+        when: ({ status }) => status == "Add Employee",
+    },
+    {
+        type: "confirm",
+        name: "confirm",
+        message: answer =>
+            `Add ${answer.firstName} ${answer.lastName} as ${answer.role} with ${answer.manager} as their manager?`,
         when: ({ status }) => status == "Add Employee",
     },
     // ---------------------------------------------------------

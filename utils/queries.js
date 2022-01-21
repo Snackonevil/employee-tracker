@@ -67,6 +67,14 @@ const Roles = {
         console.table(roles);
     },
 
+    getAllAsArray: async () => {
+        let [roles] = await db.query(
+            `SELECT roles.id, roles.title FROM roles;`
+        );
+        let roleList = roles.map(role => `ID: ${role.id}, ${role.title}`);
+        return roleList;
+    },
+
     // INSERT new role INTO roles table
     add: async (title, salary, department) => {
         // will department be taken in by ID or name?
