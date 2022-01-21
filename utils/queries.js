@@ -1,15 +1,15 @@
+// This file has database queries organized as method objects
+
+// Initialize MySql node module
 const mysql = require("mysql2");
 
-const Black = "\u001b[30m";
+// Colors for funsies
 const Red = "\u001b[31;1m";
 const Green = "\u001b[32;1m";
 const Yellow = "\u001b[33;1m";
 const Blue = "\u001b[34m";
-const Magenta = "\u001b[35m";
-const Cyan = "\u001b[36m";
-const White = "\u001b[37m";
-const Reset = "\u001b[0m";
 
+// Connect to MySql database with credentials
 const connect = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -17,14 +17,13 @@ const connect = mysql.createConnection({
     database: "mycompany",
 });
 
+// Makes queries into promises for asynch operation
 const db = connect.promise();
 
+// Methods for DEPARTMENTS TABLE queries
 const Departments = {
+    // Returns all departments and logs to console (id, title)
     showTable: async () => {
-        // let [departments] = await db.query({
-        //     sql: "SELECT departments.title FROM departments",
-        //     rowAsArray: true,
-        // });
         let [departments] = await db.query(
             "SELECT departments.id AS 'ID', departments.title AS 'Name' FROM departments"
         );
@@ -32,6 +31,7 @@ const Departments = {
         return departments;
     },
 
+    // Returns department titles as array
     getAllAsArray: async () => {
         let [data] = await db.query(
             "SELECT departments.title FROM departments"
@@ -40,18 +40,23 @@ const Departments = {
         return list;
     },
 
+    // INSERT new department INTO departments table
     add: async deptName => {
         await db.query(`INSERT INTO departments
         VALUES (id, '${deptName}')`);
         console.log(Green, `Department ${deptName} ADDED`);
     },
+
+    // DELETE department by name
     delete: async deptName => {
         await db.query(`DELETE FROM departments WHERE name='${deptName}'`);
         console.log(`Department ${deptName} DELETED`);
     },
 };
 
+// Methods for ROLES TABLE queries
 const Roles = {
+    // LOGS roles (id, title, department, salary)
     showTable: async () => {
         let [roles] = await db.query(`SELECT roles.id AS 'ID',
         roles.title AS 'Title',
@@ -62,16 +67,20 @@ const Roles = {
         console.table(roles);
     },
 
+    // INSERT new role INTO roles table
     add: async (title, salary, department) => {
         // will department be taken in by ID or name?
     },
 
+    // DELETE role from roles table by name
     delete: async () => {
         // needs to take in parameter from list
     },
 };
 
+// Methods for EMPLOYEES TABLE queries
 const Employees = {
+    // EMPLOYEE query (id, name, title, salary, department, manager)
     showTable: async () => {
         let [employees] = await db.query(`SELECT a.id AS 'ID', 
         CONCAT(a.first_name, + ' ', + a.last_name) AS 'Name', 
@@ -86,7 +95,7 @@ const Employees = {
         console.table(Blue, employees);
     },
 
-    // EMPLOYEE ARRAY (First name, Last name, Title ordered by ID)
+    // EMPLOYEE query returned as ARRAY for prompt lists(First name, Last name, Title ordered by ID)
     getAllAsArray: async () => {
         let [employees] = await db.query(`SELECT employees.id AS 'ID',
         CONCAT(employees.first_name, + ' ', + employees.last_name) AS 'Employee',
@@ -100,6 +109,7 @@ const Employees = {
         return array;
     },
 
+    // EMPLOYEE query showing employees' names and their manager name
     showManager: async () => {
         let [employees] = await db.query(`SELECT a.id AS 'ID',
         CONCAT (a.first_name, + ' ', a.last_name) AS 'Employee',
@@ -110,6 +120,8 @@ const Employees = {
         console.table(employees);
     },
 
+    // EMPLOYEE query by department
+    // Returns all employees in specified department
     showByDepartment: async department => {
         let [employees] =
             await db.query(`SELECT CONCAT(employees.first_name, + ' ', + employees.last_name) AS 'Employee',
@@ -122,10 +134,12 @@ const Employees = {
         console.table(employees);
     },
 
+    // INSERT new employee INTO employees table
     add: async (firstName, lastName, role, manager) => {
         // will role and manager be taken in by ID or name?
     },
 
+    // DELETE employee by specified name
     delete: async name => {
         await db.query(`DELETE FROM employees WHERE name='${name}'`);
         console.log(Red, `${name}\'s employee records were DELETED`);

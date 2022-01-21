@@ -1,11 +1,16 @@
-const mysql = require("mysql2");
+// Application entry file
+
+// Init console.table per documentation
 const cTable = require("console.table");
 const { mainMenu, deptMenu, roleMenu, employeeMenu } = require("./utils/menus");
 
+// Import query objects
 const dbQuery = require("./utils/queries");
 
+// State of app
 let process = true;
 
+// Entry function
 async function init() {
     while (process === true) {
         let { choice } = await mainMenu();
@@ -30,4 +35,5 @@ async function init() {
     }
 }
 
+// Initialize app
 init();
