@@ -96,6 +96,7 @@ async function employeeMenu() {
             console.log(Green, `-----------------------------\n`);
             console.log(Green, `${firstName} ${lastName} ADDED to employees\n`);
             console.log(Green, `-----------------------------\n`);
+            console.log(role.split(",")[1]);
             break;
         case "Update Employee":
             // await update method

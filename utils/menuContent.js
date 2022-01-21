@@ -168,14 +168,12 @@ const employeePrompt = [
         name: "confirm",
         message: answer =>
             `Add ${answer.firstName.toUpperCase()} ${answer.lastName.toUpperCase()} as a(n) ${answer.role
-                .split(" ")[2]
-                .toUpperCase()} with ${answer.manager
-                .replaceAll(",", "")
-                .split(" ")[2]
-                .toUpperCase()} ${answer.manager
-                .replaceAll(",", "")
-                .split(" ")[3]
-                .toUpperCase()} as their MANAGER?`,
+                .split(",")[1]
+                .toUpperCase()
+                .trim()} with ${answer.manager
+                .split(",")[1]
+                .toUpperCase()
+                .trim()} as their MANAGER?`,
         when: ({ status }) => status == "Add Employee",
     },
     // ---------------------------------------------------------
