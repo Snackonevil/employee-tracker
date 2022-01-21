@@ -1,6 +1,6 @@
 USE mycompany;
 
-INSERT INTO departments (id, name)
+INSERT INTO departments (id, title)
 VALUES (1, 'Administration'),
 (2, 'Accounts and Finance'), 
 (3, 'Sales and Marketing'), 
@@ -42,5 +42,4 @@ VALUES (1, 'Maxwell', 'Roth', 1, null),
 (17, 'Alyssa', 'Cuson', 11, 10),
 (18, 'Christine', 'Nguyen', 11, 10),
 (19, 'Darby', 'Johnson', 11, 10),
-(20, 'Kevin', 'Lacson', 11, 10),
-;
+(20, 'Kevin', 'Lacson', 11, 10);

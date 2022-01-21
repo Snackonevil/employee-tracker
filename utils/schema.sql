@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS mycompany;
 
 CREATE DATABASE mycompany;
 
-USE DATABASE mycompany;
+USE mycompany;
 
 CREATE TABLE departments (
     id INT AUTO_INCREMENT,
