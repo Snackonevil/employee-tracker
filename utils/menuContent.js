@@ -167,7 +167,7 @@ const employeePrompt = [
         type: "confirm",
         name: "confirm",
         message: answer =>
-            `Add ${answer.firstName.toUpperCase()} ${answer.lastName.toUpperCase()} as a ${answer.role
+            `Add ${answer.firstName.toUpperCase()} ${answer.lastName.toUpperCase()} as a(n) ${answer.role
                 .split(" ")[2]
                 .toUpperCase()} with ${answer.manager
                 .replaceAll(",", "")
