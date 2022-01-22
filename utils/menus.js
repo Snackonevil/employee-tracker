@@ -61,8 +61,13 @@ async function roleMenu() {
     let data = await inquirer.prompt(rolePrompt);
     switch (data.status) {
         case "Add Role":
-            await dbQuery.Roles.add(data.role); // doesn't exist yet
-            console.log(Green, `\n---${data.role} ADDED to ROLES table---\n`);
+            let [department] = await dbQuery.Departments.getIdByName(
+                data.department
+            );
+            await dbQuery.Roles.add(data.role, data.salary, department.id);
+            console.log(Green, `-----------------------------\n`);
+            console.log(Green, `${data.role}ADDED to roles\n`);
+            console.log(Green, `-----------------------------\n`);
             break;
         case "Update Role":
             // await update role

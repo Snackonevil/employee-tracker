@@ -20,15 +20,17 @@ const connect = mysql.createConnection({
 // Makes queries into promises for asynch operation
 const db = connect.promise();
 
-// Methods for DEPARTMENTS TABLE queries
+// ====================================================================
+// DEPARTMENTS
+// Methods for DEPARTMENTS table queries
+// ====================================================================
 const Departments = {
-    // Returns all departments and logs to console (id, title)
+    // Console logs departments list (id, title)
     showTable: async () => {
         let [departments] = await db.query(
             "SELECT departments.id AS 'ID', departments.title AS 'Name' FROM departments"
         );
         console.table(Blue, departments);
-        return departments;
     },
 
     // Returns department titles as array
@@ -38,6 +40,15 @@ const Departments = {
         );
         let list = data.map(item => item.title);
         return list;
+    },
+
+    getIdByName: async department => {
+        console.log(department);
+        let [departmentId] = await db.query(
+            `SELECT departments.id FROM departments WHERE departments.title = '${department}'`
+        );
+        console.log(departmentId, "this is in queries");
+        return departmentId;
     },
 
     // INSERT new department INTO departments table
@@ -54,7 +65,10 @@ const Departments = {
     },
 };
 
-// Methods for ROLES TABLE queries
+// ====================================================================
+// ROLES
+// Methods for ROLES table queries
+// ====================================================================
 const Roles = {
     // LOGS roles (id, title, department, salary)
     showTable: async () => {
@@ -64,7 +78,7 @@ const Roles = {
         roles.salary AS 'Salary'
         FROM roles
         LEFT JOIN departments ON roles.department_id = departments.id;`);
-        console.table(roles);
+        console.table(Blue, roles);
     },
 
     getAllAsArray: async () => {
@@ -76,8 +90,10 @@ const Roles = {
     },
 
     // INSERT new role INTO roles table
-    add: async (title, salary, department) => {
-        // will department be taken in by ID or name?
+    add: async (title, salary, departmentId) => {
+        await db.query(`INSERT INTO roles (id, title, salary, department_id)
+        VALUES (id, '${title}', ${salary}, ${departmentId});`);
+        console.log("role added");
     },
 
     // DELETE role from roles table by name
@@ -86,7 +102,10 @@ const Roles = {
     },
 };
 
-// Methods for EMPLOYEES TABLE queries
+// ====================================================================
+// EMPLOYEES
+// Methods for EMPLOYEES table queries
+// ====================================================================
 const Employees = {
     // EMPLOYEE query (id, name, title, salary, department, manager)
     showTable: async () => {
@@ -103,7 +122,8 @@ const Employees = {
         console.table(Blue, employees);
     },
 
-    // EMPLOYEE query returned as ARRAY for prompt lists(First name, Last name, Title ordered by ID)
+    // EMPLOYEE query returned as ARRAY for prompt lists
+    // (First name, Last name, Title ordered by ID)
     getAllAsArray: async () => {
         let [employees] = await db.query(`SELECT employees.id AS 'ID',
         CONCAT(employees.first_name, + ' ', + employees.last_name) AS 'Employee',

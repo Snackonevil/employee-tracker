@@ -95,22 +95,24 @@ const rolePrompt = [
     },
     {
         type: "input",
-        name: "name",
-        message: "Enter NAME of role:",
-        // when add
+        name: "role",
+        message: "Enter NAME of new role:",
+        when: ({ status }) => status == "Add Role",
+    },
+    {
+        type: "list",
+        name: "department",
+        message: answers => `Which DEPARTMENT is the ${answers.name} role?:`,
+        choices: deptList,
+        when: ({ status }) => status == "Add Role",
     },
     {
         type: "input",
         name: "salary",
-        message: answers => `${answers.name}\'s SALARY:`,
-        // when add
+        message: answers => `What is the SALARY for a(n) ${answers.name}?:`,
+        when: ({ status }) => status == "Add Role",
     },
-    {
-        type: "input",
-        name: "department",
-        message: answers => `${answers.name}\'s DEPARTMENT:`,
-        // when add
-    },
+
     // ---------------------------------------------------------
     // --------------------- IF UPDATE -------------------------
     // insert prompts

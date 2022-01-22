@@ -37,5 +37,5 @@ async function init() {
 }
 
 // Initialize app
-console.log(Yellow, "Welcome! Let's take care of business\u001b[0m");
+console.log(Yellow, "Welcome! Let's take care of business!\u001b[0m");
 init();
