@@ -31,10 +31,6 @@ async function deptMenu() {
     switch (data.status) {
         case "Add Department":
             await dbQuery.Departments.add(data.dept);
-            console.log(
-                Green,
-                `\n---${data.dept} added to DEPARTMENTS table---\n`
-            );
             break;
         case "Update Department":
             // add await handle update
@@ -65,9 +61,6 @@ async function roleMenu() {
                 data.department
             );
             await dbQuery.Roles.add(data.role, data.salary, department.id);
-            console.log(Green, `-----------------------------\n`);
-            console.log(Green, `${data.role}ADDED to roles\n`);
-            console.log(Green, `-----------------------------\n`);
             break;
         case "Update Role":
             // await update role
@@ -105,11 +98,7 @@ async function employeeMenu() {
         case "Add Employee":
             let managerId = manager.replaceAll(",", "").split(" ")[1];
             let roleId = role.replaceAll(",", "").split(" ")[1];
-            dbQuery.Employees.add(firstName, lastName, roleId, managerId);
-            console.log(Green, `-----------------------------\n`);
-            console.log(Green, `${firstName} ${lastName} ADDED to employees\n`);
-            console.log(Green, `-----------------------------\n`);
-            console.log(role.split(",")[1]);
+            await dbQuery.Employees.add(firstName, lastName, roleId, managerId);
             break;
         case "Update Employee":
             // Parse employee info to further specify query
@@ -123,18 +112,13 @@ async function employeeMenu() {
             let employeeLastName = employeeData
                 .replaceAll(",", "")
                 .split(" ")[3];
-            dbQuery.Employees.update(
+            await dbQuery.Employees.update(
                 employeeId,
                 employeeFirstName,
                 employeeLastName,
                 newRole
             );
-            console.log(Yellow, `-----------------------------\n`);
-            console.log(
-                Yellow,
-                `${employeeFirstName} ${employeeLastName} ROLE UPDATED to ${newRole.toUpperCase()}\n`
-            );
-            console.log(Yellow, `-----------------------------\n`);
+
             break;
         case "Delete Employee":
             confirm == true;

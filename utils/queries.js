@@ -1,4 +1,4 @@
-// This file has database queries organized as method objects
+// This file has database queries organized as object methods
 
 // Initialize MySql node module
 const mysql = require("mysql2");
@@ -16,6 +16,12 @@ const connect = mysql.createConnection({
     password: "MySqlServer",
     database: "mycompany",
 });
+
+const createLine = color =>
+    console.log(
+        color,
+        `----------------------------------------------------------\u001b[0m \n`
+    );
 
 // Makes queries into promises for asynch operation
 const db = connect.promise();
@@ -47,7 +53,6 @@ const Departments = {
         let [departmentId] = await db.query(
             `SELECT departments.id FROM departments WHERE departments.title = '${department}'`
         );
-        console.log(departmentId, "this is in queries");
         return departmentId;
     },
 
@@ -55,12 +60,17 @@ const Departments = {
     add: async deptName => {
         await db.query(`INSERT INTO departments
         VALUES (id, '${deptName}')`);
-        console.log(Green, `Department ${deptName} ADDED`);
+        createLine(Green);
+        console.log(
+            Green,
+            `${deptName.toUpperCase()} department ADDED to DEPARTMENTS\n`
+        );
+        createLine(Green);
     },
 
     // DELETE department by name
     delete: async deptName => {
-        await db.query(`DELETE FROM departments WHERE name='${deptName}'`);
+        await db.query(`DELETE FROM departments WHERE title='${deptName}'`);
         console.log(`Department ${deptName} DELETED`);
     },
 };
@@ -93,7 +103,15 @@ const Roles = {
     add: async (title, salary, departmentId) => {
         await db.query(`INSERT INTO roles (id, title, salary, department_id)
         VALUES (id, '${title}', ${salary}, ${departmentId});`);
-        console.log("role added");
+        console.log(
+            Green,
+            `----------------------------------------------------------\n`
+        );
+        console.log(Green, `${title}ADDED to roles\n`);
+        console.log(
+            Green,
+            `----------------------------------------------------------\n\u001b[0m`
+        );
     },
 
     // DELETE role from roles table by name
@@ -166,6 +184,15 @@ const Employees = {
     add: async (firstName, lastName, roleId, managerId) => {
         await db.query(`INSERT INTO employees (id, first_name, last_name, role_id, manager_id)
         VALUES (id, '${firstName}', '${lastName}', ${roleId}, ${managerId});`);
+        console.log(
+            Green,
+            `----------------------------------------------------------\n`
+        );
+        console.log(Green, `${firstName} ${lastName} ADDED to employees\n`);
+        console.log(
+            Green,
+            `----------------------------------------------------------\n`
+        );
     },
 
     // UPDATE employee role
@@ -180,12 +207,24 @@ const Employees = {
         WHERE employees.id = ${id} 
         AND employees.first_name = '${firstName}'
         AND employees.last_name = '${lastName}';`);
+        console.log(
+            Yellow,
+            `----------------------------------------------------------\n`
+        );
+        console.log(
+            Yellow,
+            `${firstName.toUpperCase()} ${lastName.toUpperCase()}'s role UPDATED to ${newRole.toUpperCase()}\n`
+        );
+        console.log(
+            Yellow,
+            `----------------------------------------------------------\n\u001b[0m`
+        );
     },
 
     // DELETE employee by specified name
     delete: async name => {
-        await db.query(`DELETE FROM employees WHERE name='${name}'`);
-        console.log(Red, `${name}\'s employee records were DELETED`);
+        // await db.query(`DELETE FROM employees WHERE name='${name}'`);
+        // console.log(Red, `${name}'s employee records were DELETED`);
     },
 };
 

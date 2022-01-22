@@ -158,7 +158,7 @@ const employeePrompt = [
         type: "list",
         name: "role",
         message: answer =>
-            `What is ${answer.firstName} ${answer.lastName}\'s role?:`,
+            `What is ${answer.firstName} ${answer.lastName}'s role?:`,
         choices: roleList,
         when: ({ status }) => status == "Add Employee",
     },
@@ -166,7 +166,7 @@ const employeePrompt = [
         type: "list",
         name: "manager",
         message: answer =>
-            `Who is ${answer.firstName} ${answer.lastName}\'s manager?:`,
+            `Who is ${answer.firstName} ${answer.lastName}'s manager?:`,
         choices: empList,
         when: ({ status }) => status == "Add Employee",
     },
@@ -196,7 +196,7 @@ const employeePrompt = [
         type: "list",
         name: "newRole",
         message: ({ employeeData }) =>
-            `What is ${employeeData.split(",")[1].trim()}\'s NEW role?`,
+            `What is ${employeeData.split(",")[1].trim()}'s NEW role?`,
         choices: roleListNameOnly,
         when: ({ status }) => status == "Update Employee",
     },
