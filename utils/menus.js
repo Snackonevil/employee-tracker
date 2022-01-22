@@ -14,6 +14,10 @@ const {
 // Import query methods for objects
 const dbQuery = require("./queries");
 
+// Require Departmemnts
+// Require Roles
+// Require Employees from lib !don't forget to change dbquery below
+
 // Menu Prompts
 async function mainMenu() {
     let choice = await inquirer.prompt(main);
