@@ -91,8 +91,16 @@ async function roleMenu() {
 
 // Function handling Employees menu
 async function employeeMenu() {
-    let { status, firstName, lastName, role, manager, confirm } =
-        await inquirer.prompt(employeePrompt);
+    let {
+        status,
+        firstName,
+        lastName,
+        role,
+        manager,
+        confirm,
+        newRole,
+        employeeData,
+    } = await inquirer.prompt(employeePrompt);
     switch (status) {
         case "Add Employee":
             let managerId = manager.replaceAll(",", "").split(" ")[1];
@@ -104,7 +112,29 @@ async function employeeMenu() {
             console.log(role.split(",")[1]);
             break;
         case "Update Employee":
-            // await update method
+            // Parse employee info to further specify query
+            let employeeId = employeeData
+                .replaceAll(",", "")
+                .split(" ")[1]
+                .trim();
+            let employeeFirstName = employeeData
+                .replaceAll(",", "")
+                .split(" ")[2];
+            let employeeLastName = employeeData
+                .replaceAll(",", "")
+                .split(" ")[3];
+            dbQuery.Employees.update(
+                employeeId,
+                employeeFirstName,
+                employeeLastName,
+                newRole
+            );
+            console.log(Yellow, `-----------------------------\n`);
+            console.log(
+                Yellow,
+                `${employeeFirstName} ${employeeLastName} ROLE UPDATED to ${newRole.toUpperCase()}\n`
+            );
+            console.log(Yellow, `-----------------------------\n`);
             break;
         case "Delete Employee":
             confirm == true;

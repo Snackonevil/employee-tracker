@@ -168,6 +168,20 @@ const Employees = {
         VALUES (id, '${firstName}', '${lastName}', ${roleId}, ${managerId});`);
     },
 
+    // UPDATE employee role
+    update: async (id, firstName, lastName, newRole) => {
+        // Get role ID by name
+        let [role] = await db.query(`SELECT roles.id FROM roles
+        WHERE roles.title = '${newRole}';`);
+
+        // Update query
+        await db.query(`UPDATE employees
+        SET role_id = ${role[0].id}
+        WHERE employees.id = ${id} 
+        AND employees.first_name = '${firstName}'
+        AND employees.last_name = '${lastName}';`);
+    },
+
     // DELETE employee by specified name
     delete: async name => {
         await db.query(`DELETE FROM employees WHERE name='${name}'`);

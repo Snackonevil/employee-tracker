@@ -11,6 +11,11 @@ const dbQuery = require("./queries");
 const deptList = async () => await dbQuery.Departments.getAllAsArray();
 const empList = async () => await dbQuery.Employees.getAllAsArray();
 const roleList = async () => await dbQuery.Roles.getAllAsArray();
+const roleListNameOnly = async () => {
+    let roles = await roleList();
+    let roleNames = roles.map(role => role.split(",")[1].trim());
+    return roleNames;
+};
 
 const main = [
     {
@@ -180,7 +185,21 @@ const employeePrompt = [
     },
     // ---------------------------------------------------------
     // --------------------- IF UPDATE -------------------------
-    // insert prompts
+    {
+        type: "list",
+        name: "employeeData",
+        message: "Which employee would you like to update?",
+        choices: empList,
+        when: ({ status }) => status == "Update Employee",
+    },
+    {
+        type: "list",
+        name: "newRole",
+        message: ({ employeeData }) =>
+            `What is ${employeeData.split(",")[1].trim()}\'s NEW role?`,
+        choices: roleListNameOnly,
+        when: ({ status }) => status == "Update Employee",
+    },
 
     // ---------------------------------------------------------
     // ---------------------- IF DELETE ------------------------
