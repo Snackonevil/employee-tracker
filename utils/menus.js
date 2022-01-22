@@ -39,10 +39,6 @@ async function deptMenu() {
         case "Delete Department":
             if (data.confirm == true) {
                 await dbQuery.Departments.delete(data.dept);
-                console.log(
-                    Red,
-                    `\n---${data.dept} deleted from DEPARTMENTS table---\n`
-                );
             } else {
                 return;
             }
@@ -63,16 +59,11 @@ async function roleMenu() {
             await dbQuery.Roles.add(data.role, data.salary, department.id);
             break;
         case "Update Role":
-            // await update role
-            console.log(Yellow, `\n---${data.role} UPDATED---\n`);
+            // need method
             break;
         case "Delete Role":
             if (data.confirm == true) {
-                await dbQuery.Roles.delete(data.role); // doesn't exist yet
-                console.log(
-                    Red,
-                    `\n---${data.role} DELETED from ROLES table---\n`
-                );
+                // need method
             } else {
                 return;
             }

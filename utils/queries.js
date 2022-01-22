@@ -71,7 +71,9 @@ const Departments = {
     // DELETE department by name
     delete: async deptName => {
         await db.query(`DELETE FROM departments WHERE title='${deptName}'`);
-        console.log(`Department ${deptName} DELETED`);
+        createLine(Red);
+        console.log(Red, `${deptName} department DELETED \n`);
+        createLine(Red);
     },
 };
 
@@ -103,15 +105,9 @@ const Roles = {
     add: async (title, salary, departmentId) => {
         await db.query(`INSERT INTO roles (id, title, salary, department_id)
         VALUES (id, '${title}', ${salary}, ${departmentId});`);
-        console.log(
-            Green,
-            `----------------------------------------------------------\n`
-        );
+        createLine(Green);
         console.log(Green, `${title}ADDED to roles\n`);
-        console.log(
-            Green,
-            `----------------------------------------------------------\n\u001b[0m`
-        );
+        createLine(Green);
     },
 
     // DELETE role from roles table by name
@@ -184,15 +180,9 @@ const Employees = {
     add: async (firstName, lastName, roleId, managerId) => {
         await db.query(`INSERT INTO employees (id, first_name, last_name, role_id, manager_id)
         VALUES (id, '${firstName}', '${lastName}', ${roleId}, ${managerId});`);
-        console.log(
-            Green,
-            `----------------------------------------------------------\n`
-        );
+        createLine(Green);
         console.log(Green, `${firstName} ${lastName} ADDED to employees\n`);
-        console.log(
-            Green,
-            `----------------------------------------------------------\n`
-        );
+        createLine(Green);
     },
 
     // UPDATE employee role
@@ -207,18 +197,12 @@ const Employees = {
         WHERE employees.id = ${id} 
         AND employees.first_name = '${firstName}'
         AND employees.last_name = '${lastName}';`);
-        console.log(
-            Yellow,
-            `----------------------------------------------------------\n`
-        );
+        createLine(Yellow);
         console.log(
             Yellow,
             `${firstName.toUpperCase()} ${lastName.toUpperCase()}'s role UPDATED to ${newRole.toUpperCase()}\n`
         );
-        console.log(
-            Yellow,
-            `----------------------------------------------------------\n\u001b[0m`
-        );
+        createLine(Yellow);
     },
 
     // DELETE employee by specified name
