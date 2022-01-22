@@ -21,7 +21,9 @@ const seedDb = async () => {
         await db.query(seed);
         console.log("Seeding Tables...");
         connection.end();
-        console.log("Database ready.");
+        console.log(
+            "\u001b[32mDatabase ready: \u001b[0m'npm run start'\u001b[32m to begin.\u001b[0m \n"
+        );
     } catch (err) {
         throw err;
     }

@@ -9,7 +9,9 @@ GitHub: [Snackonevil](https://github.com/Snackonevil)
 
 ## Description
 
-Command Line application to manage employees, roles, departments, and managers with a MySQL database
+Command Line application to manage employees, roles, departments, and managers with a MySQL database.
+
+[CODE](https://github.com/Snackonevil/taking-care-of-business) | Walkthrough
 
 ---
 
@@ -17,19 +19,30 @@ Command Line application to manage employees, roles, departments, and managers w
 
 -   [Installation](#installation)
 -   [Usage](#usage)
+-   [Table Schemas](#table-schemas)
 -   [Contribute](#contribute)
--   [Test](#tests)
 -   [License](#license)
 
 ---
 
 ## Installation
 
+This app uses the following Node.js and the following modules:
+
+-   [MySQL2 package](https://www.npmjs.com/package/mysql2)
+-   [Inquirer package](https://www.npmjs.com/package/inquirer)
+-   [console.table package](https://www.npmjs.com/package/console.table)
+
+`npm run initDatabase` to establish schema and seed tables,  
+`npm run start` to initialize app
+
 ---
 
 ## Usage
 
-### Table Schemas
+---
+
+## Table Schemas
 
 DEPARTMENTS table
 | Field | Type | Key | Extras |
@@ -54,17 +67,13 @@ EMPLOYEES table
 | role_id | INT | Foreign | References roles.id |
 | manager_id | INT | Foreign | n/a | References employee.id |
 
+[Schema-SQL-file](./utils/schema.sql) | [Seed-SQL-file](./utils/seed.sql)
+
 ---
 
 ## Contribute
 
 Feel free to make a pull request
-
----
-
-## Tests
-
-no tests
 
 ---
 
