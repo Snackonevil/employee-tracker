@@ -17,6 +17,7 @@ const connect = mysql.createConnection({
     database: "mycompany",
 });
 
+// For looks
 const createLine = color =>
     console.log(
         color,
