@@ -14,11 +14,6 @@ const {
 // Import query methods for objects
 const dbQuery = require("./queries");
 
-// Colors for funsies
-const Red = "\u001b[31;1m";
-const Green = "\u001b[32;1m";
-const Yellow = "\u001b[33;1m";
-
 // Menu Prompts
 async function mainMenu() {
     let choice = await inquirer.prompt(main);
@@ -34,7 +29,6 @@ async function deptMenu() {
             break;
         case "Update Department":
             // add await handle update
-            console.log(Yellow, `\n---${data.dept} department UPDATED ---\n`);
             break;
         case "Delete Department":
             if (data.confirm == true) {
@@ -109,7 +103,6 @@ async function employeeMenu() {
                 employeeLastName,
                 newRole
             );
-
             break;
         case "Delete Employee":
             confirm == true;

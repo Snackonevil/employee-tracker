@@ -44,12 +44,11 @@ const Departments = {
         let [data] = await db.query(
             "SELECT departments.title FROM departments"
         );
-        let list = data.map(item => item.title);
-        return list;
+        let deptArray = data.map(item => item.title);
+        return deptArray;
     },
 
     getIdByName: async department => {
-        console.log(department);
         let [departmentId] = await db.query(
             `SELECT departments.id FROM departments WHERE departments.title = '${department}'`
         );
@@ -97,8 +96,8 @@ const Roles = {
         let [roles] = await db.query(
             `SELECT roles.id, roles.title FROM roles;`
         );
-        let roleList = roles.map(role => `ID: ${role.id}, ${role.title}`);
-        return roleList;
+        let roleArr = roles.map(role => `ID: ${role.id}, ${role.title}`);
+        return roleArr;
     },
 
     // INSERT new role INTO roles table
@@ -145,10 +144,10 @@ const Employees = {
         FROM employees
         LEFT JOIN roles ON employees.role_id = roles.id
         ORDER BY employees.id;`);
-        let array = employees.map(
+        let emplArray = employees.map(
             item => `ID: ${item.ID}, ${item.Employee}, ${item.Title}`
         );
-        return array;
+        return emplArray;
     },
 
     // EMPLOYEE query showing employees' names and their manager name
@@ -205,7 +204,7 @@ const Employees = {
         createLine(Yellow);
     },
 
-    // DELETE employee by specified name
+    // DELETE employee by specified name and ID
     delete: async name => {
         // await db.query(`DELETE FROM employees WHERE name='${name}'`);
         // console.log(Red, `${name}'s employee records were DELETED`);
