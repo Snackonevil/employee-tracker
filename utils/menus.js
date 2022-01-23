@@ -12,11 +12,12 @@ const {
 } = require("./menuContent");
 
 function parseEmployeeData(data) {
-    return (employee = {
+    let employee = {
         id: data.replaceAll(",", "").split(" ")[1].trim(),
         firstName: data.replaceAll(",", "").split(" ")[2].trim(),
         lastName: data.replaceAll(",", "").split(" ")[3].trim(),
-    });
+    };
+    return employee;
 }
 
 // Import objects for query methods
@@ -70,7 +71,6 @@ async function roleMenu() {
             } else {
                 return;
             }
-            break;
         case "BACK":
             break;
     }
@@ -96,27 +96,19 @@ async function employeeMenu() {
             break;
         case "Update Employee":
             // Parse employee info to further specify query
-            let employeeId = employeeData
-                .replaceAll(",", "")
-                .split(" ")[1]
-                .trim();
-            let employeeFirstName = employeeData
-                .replaceAll(",", "")
-                .split(" ")[2];
-            let employeeLastName = employeeData
-                .replaceAll(",", "")
-                .split(" ")[3];
+            let updateEmployee = parseEmployeeData(employeeData);
+            console.log(updateEmployee);
             await Employees.update(
-                employeeId,
-                employeeFirstName,
-                employeeLastName,
+                updateEmployee.id,
+                updateEmployee.firstName,
+                updateEmployee.lastName,
                 newRole
             );
             break;
         case "Delete Employee":
             confirm == true;
-            const employee = parseEmployeeData(employeeData);
-            console.log(employee);
+            let deleteEmployee = parseEmployeeData(employeeData);
+            console.log(deleteEmployee);
             // ? // delete method
             // : "";
             break;
