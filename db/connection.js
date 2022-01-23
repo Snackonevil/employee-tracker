@@ -9,6 +9,7 @@ const connect = mysql.createConnection({
     user: "root",
     password: "MySqlServer",
     database: "mycompany",
+    multipleStatements: true,
 });
 
 // Makes queries into promises for asynch operation

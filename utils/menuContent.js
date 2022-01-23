@@ -128,7 +128,20 @@ const rolePrompt = [
 
     // ---------------------------------------------------------
     // ---------------------- IF DELETE ------------------------
-    // insert prompts
+    {
+        type: "list",
+        name: "role",
+        message: "While ROLE would you like to delete?",
+        choices: roleListNameOnly,
+        when: ({ status }) => status == "Delete Role",
+    },
+    {
+        type: "confirm",
+        name: "confirm",
+        message: answers =>
+            `Are you sure you would like to DELETE ${answers.role} from the database?`,
+        when: ({ status }) => status == "Delete Role",
+    },
 ];
 
 const employeePrompt = [

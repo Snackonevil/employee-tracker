@@ -16,10 +16,6 @@ const Departments = require("../lib/Departments");
 const Roles = require("../lib/Roles");
 const Employees = require("../lib/Employees");
 
-// Require Departmemnts
-// Require Roles
-// Require Employees from lib !don't forget to change below
-
 // Menu Prompts
 async function mainMenu() {
     let choice = await inquirer.prompt(main);
@@ -61,7 +57,8 @@ async function roleMenu() {
             break;
         case "Delete Role":
             if (data.confirm == true) {
-                // need method
+                await Roles.delete(data.role);
+                break;
             } else {
                 return;
             }
