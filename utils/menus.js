@@ -11,15 +11,6 @@ const {
     employeePrompt,
 } = require("./menuContent");
 
-function parseEmployeeData(data) {
-    let employee = {
-        id: data.replaceAll(",", "").split(" ")[1].trim(),
-        firstName: data.replaceAll(",", "").split(" ")[2].trim(),
-        lastName: data.replaceAll(",", "").split(" ")[3].trim(),
-    };
-    return employee;
-}
-
 // Import objects for query methods
 const Departments = require("../lib/Departments");
 const Roles = require("../lib/Roles");
@@ -76,6 +67,16 @@ async function roleMenu() {
     }
 }
 
+// Manipulate employee data strings to get specific information for query
+function parseEmployeeData(data) {
+    let employee = {
+        id: data.replaceAll(",", "").split(" ")[1].trim(),
+        firstName: data.replaceAll(",", "").split(" ")[2].trim(),
+        lastName: data.replaceAll(",", "").split(" ")[3].trim(),
+    };
+    return employee;
+}
+
 // Function handling Employees menu
 async function employeeMenu() {
     let {
@@ -109,8 +110,11 @@ async function employeeMenu() {
             confirm == true;
             let deleteEmployee = parseEmployeeData(employeeData);
             console.log(deleteEmployee);
-            // ? // delete method
-            // : "";
+            await Employees.delete(
+                deleteEmployee.id,
+                deleteEmployee.firstName,
+                deleteEmployee.lastName
+            );
             break;
         case "BACK":
             break;
