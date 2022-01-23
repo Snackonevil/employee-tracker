@@ -4,13 +4,15 @@
 const inquirer = require("inquirer");
 const cTable = require("console.table");
 
-// Import query methods for objects
-const dbQuery = require("./queries");
+// Import objects for query methods
+const Departments = require("../lib/Departments");
+const Roles = require("../lib/Roles");
+const Employees = require("../lib/Employees");
 
 // Methods to pull lists as arrays
-const deptList = async () => await dbQuery.Departments.getAllAsArray();
-const empList = async () => await dbQuery.Employees.getAllAsArray();
-const roleList = async () => await dbQuery.Roles.getAllAsArray();
+const deptList = async () => await Departments.getAllAsArray();
+const empList = async () => await Employees.getAllAsArray();
+const roleList = async () => await Roles.getAllAsArray();
 const roleListNameOnly = async () => {
     let roles = await roleList();
     let roleNames = roles.map(role => role.split(",")[1].trim());
@@ -107,14 +109,16 @@ const rolePrompt = [
     {
         type: "list",
         name: "department",
-        message: answers => `Which DEPARTMENT is the ${answers.name} role?:`,
+        message: answers =>
+            `Which DEPARTMENT is the ${answers.role.toUpperCase()} role?:`,
         choices: deptList,
         when: ({ status }) => status == "Add Role",
     },
     {
         type: "input",
         name: "salary",
-        message: answers => `What is the SALARY for a(n) ${answers.name}?:`,
+        message: answers =>
+            `What is the SALARY for a(n) ${answers.role.toUpperCase()}?:`,
         when: ({ status }) => status == "Add Role",
     },
 

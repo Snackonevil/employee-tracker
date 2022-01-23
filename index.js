@@ -4,8 +4,12 @@
 const cTable = require("console.table");
 const { mainMenu, deptMenu, roleMenu, employeeMenu } = require("./utils/menus");
 
-// Import query objects
-const dbQuery = require("./utils/queries");
+const db = require("./db/connection");
+
+// Import objects for query methods
+const Departments = require("./lib/Departments");
+const Roles = require("./lib/Roles");
+const Employees = require("./lib/Employees");
 
 // State of app
 let process = true;
@@ -16,19 +20,19 @@ async function init() {
         let { choice } = await mainMenu();
         switch (choice) {
             case "View Departments":
-                await dbQuery.Departments.showTable();
+                await Departments.showTable();
                 await deptMenu();
                 break;
             case "View Roles":
-                await dbQuery.Roles.showTable();
+                await Roles.showTable();
                 await roleMenu();
                 break;
             case "View Employees":
-                await dbQuery.Employees.showTable();
+                await Employees.showTable();
                 await employeeMenu();
                 break;
             case "Exit":
-                dbQuery.db.end();
+                db.end();
                 console.log(Yellow, "----- Goodbye ------\u001b[0m");
                 process = false;
                 return;
