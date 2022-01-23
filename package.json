@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "node index.js",
-        "initDatabase": "node ./utils/initDatabase.js"
+        "initDatabase": "node ./db/initDatabase.js"
     },
     "keywords": [],
     "author": "Kevin Lacson",

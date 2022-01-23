@@ -9,8 +9,8 @@ const connection = mysql.createConnection({
 
 const db = connection.promise();
 
-const schemaFile = fs.readFileSync("./utils/schema.sql", "utf-8");
-const seedFile = fs.readFileSync("./utils/seed.sql", "utf-8");
+const schemaFile = fs.readFileSync("./db/schema.sql", "utf-8");
+const seedFile = fs.readFileSync("./db/seed.sql", "utf-8");
 
 const seedDb = async () => {
     try {

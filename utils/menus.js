@@ -11,12 +11,14 @@ const {
     employeePrompt,
 } = require("./menuContent");
 
-// Import query methods for objects
-const dbQuery = require("./queries");
+// Import objects for query methods
+const Departments = require("../lib/Departments");
+const Roles = require("../lib/Roles");
+const Employees = require("../lib/Employees");
 
 // Require Departmemnts
 // Require Roles
-// Require Employees from lib !don't forget to change dbquery below
+// Require Employees from lib !don't forget to change below
 
 // Menu Prompts
 async function mainMenu() {
@@ -29,14 +31,14 @@ async function deptMenu() {
     let data = await inquirer.prompt(deptPrompt);
     switch (data.status) {
         case "Add Department":
-            await dbQuery.Departments.add(data.dept);
+            await Departments.add(data.dept);
             break;
         case "Update Department":
             // add await handle update
             break;
         case "Delete Department":
             if (data.confirm == true) {
-                await dbQuery.Departments.delete(data.dept);
+                await Departments.delete(data.dept);
             } else {
                 return;
             }
@@ -51,10 +53,8 @@ async function roleMenu() {
     let data = await inquirer.prompt(rolePrompt);
     switch (data.status) {
         case "Add Role":
-            let [department] = await dbQuery.Departments.getIdByName(
-                data.department
-            );
-            await dbQuery.Roles.add(data.role, data.salary, department.id);
+            let [department] = await Departments.getIdByName(data.department);
+            await Roles.add(data.role, data.salary, department.id);
             break;
         case "Update Role":
             // need method
@@ -87,7 +87,7 @@ async function employeeMenu() {
         case "Add Employee":
             let managerId = manager.replaceAll(",", "").split(" ")[1];
             let roleId = role.replaceAll(",", "").split(" ")[1];
-            await dbQuery.Employees.add(firstName, lastName, roleId, managerId);
+            await Employees.add(firstName, lastName, roleId, managerId);
             break;
         case "Update Employee":
             // Parse employee info to further specify query
@@ -101,7 +101,7 @@ async function employeeMenu() {
             let employeeLastName = employeeData
                 .replaceAll(",", "")
                 .split(" ")[3];
-            await dbQuery.Employees.update(
+            await Employees.update(
                 employeeId,
                 employeeFirstName,
                 employeeLastName,

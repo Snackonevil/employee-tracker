@@ -1,3 +1,17 @@
-// insert connection information and export
+//
 
-// Also rearrangeschema, seed, and initDb files to db folder. Make sure to correct paths
+// Initialize MySql node module
+const mysql = require("mysql2");
+
+// Connect to MySql database with credentials
+const connect = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "MySqlServer",
+    database: "mycompany",
+});
+
+// Makes queries into promises for asynch operation
+const db = connect.promise();
+
+module.exports = db;
