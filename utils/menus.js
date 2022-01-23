@@ -11,6 +11,14 @@ const {
     employeePrompt,
 } = require("./menuContent");
 
+function parseEmployeeData(data) {
+    return (employee = {
+        id: data.replaceAll(",", "").split(" ")[1].trim(),
+        firstName: data.replaceAll(",", "").split(" ")[2].trim(),
+        lastName: data.replaceAll(",", "").split(" ")[3].trim(),
+    });
+}
+
 // Import objects for query methods
 const Departments = require("../lib/Departments");
 const Roles = require("../lib/Roles");
@@ -107,6 +115,8 @@ async function employeeMenu() {
             break;
         case "Delete Employee":
             confirm == true;
+            const employee = parseEmployeeData(employeeData);
+            console.log(employee);
             // ? // delete method
             // : "";
             break;

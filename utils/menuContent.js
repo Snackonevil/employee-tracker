@@ -205,7 +205,7 @@ const employeePrompt = [
     {
         type: "list",
         name: "employeeData",
-        message: "Which employee would you like to update?",
+        message: "Which employee would you like to UPDATE?",
         choices: empList,
         when: ({ status }) => status == "Update Employee",
     },
@@ -220,7 +220,26 @@ const employeePrompt = [
 
     // ---------------------------------------------------------
     // ---------------------- IF DELETE ------------------------
-    // insert prompts
+    {
+        type: "list",
+        name: "employeeData",
+        message: "Which employee would you like to DELETE?",
+        choices: empList,
+        when: ({ status }) => status == "Delete Employee",
+    },
+    {
+        type: "confirm",
+        name: "confirm",
+        message: answers =>
+            `Are you sure you would like to DELETE ${answers.employeeData
+                .split(",")[1]
+                .trim()
+                .toUpperCase()}, ${answers.employeeData
+                .split(",")[2]
+                .trim()
+                .toUpperCase()} from the database?`,
+        when: ({ status }) => status == "Delete Employee",
+    },
 ];
 
 module.exports = { main, deptPrompt, rolePrompt, employeePrompt };
