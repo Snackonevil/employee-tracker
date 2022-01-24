@@ -35,6 +35,14 @@ async function init() {
                 await Employees.showTable();
                 await employeeMenu();
                 break;
+            case "View Employees by Department":
+                // await Employees.showManager();
+                await employeeMenu();
+                break;
+            case "View Employees by Manager":
+                // await Employees.showManager();
+                await employeeMenu();
+                break;
             case "Exit":
                 db.end();
                 console.log(Yellow, "------ Goodbye ------\u001b[0m");
