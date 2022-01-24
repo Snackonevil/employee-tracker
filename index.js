@@ -4,6 +4,7 @@
 const cTable = require("console.table");
 const { mainMenu, deptMenu, roleMenu, employeeMenu } = require("./utils/menus");
 
+// Import MySQL connection in order to end it on Exit
 const db = require("./db/connection");
 
 // Import objects for query methods
@@ -13,7 +14,10 @@ const Employees = require("./lib/Employees");
 
 // State of app
 let process = true;
+
+//Color for funsies
 const Yellow = "\u001b[33;1m";
+
 // Entry function
 async function init() {
     while (process === true) {
@@ -27,13 +31,13 @@ async function init() {
                 await Roles.showTable();
                 await roleMenu();
                 break;
-            case "View Employees":
+            case "View All Employees":
                 await Employees.showTable();
                 await employeeMenu();
                 break;
             case "Exit":
                 db.end();
-                console.log(Yellow, "----- Goodbye ------\u001b[0m");
+                console.log(Yellow, "------ Goodbye ------\u001b[0m");
                 process = false;
                 return;
         }

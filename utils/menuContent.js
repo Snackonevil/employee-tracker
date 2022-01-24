@@ -2,7 +2,6 @@
 
 // Bringing inquirer module
 const inquirer = require("inquirer");
-const cTable = require("console.table");
 
 // Import objects for query methods
 const Departments = require("../lib/Departments");
@@ -22,14 +21,20 @@ const roleListNameOnly = async () => {
 const main = [
     {
         type: "list",
-        pageSize: 12,
+        pageSize: 14,
         name: "choice",
         message: "Select an option:",
         choices: [
             new inquirer.Separator(),
             "View Departments",
+            new inquirer.Separator(),
             "View Roles",
-            "View Employees",
+            new inquirer.Separator(),
+            "View All Employees",
+            "View Employees by Department",
+            "View Employees by Manager",
+            new inquirer.Separator(),
+            "View Budget",
             new inquirer.Separator(),
             "Exit",
             new inquirer.Separator(),
@@ -124,14 +129,20 @@ const rolePrompt = [
 
     // ---------------------------------------------------------
     // --------------------- IF UPDATE -------------------------
-    // insert prompts
+    {
+        type: "list",
+        name: "role",
+        message: "While ROLE would you like to UPDATE?",
+        choices: roleListNameOnly,
+        when: ({ status }) => status == "Update Role",
+    },
 
     // ---------------------------------------------------------
     // ---------------------- IF DELETE ------------------------
     {
         type: "list",
         name: "role",
-        message: "While ROLE would you like to delete?",
+        message: "While ROLE would you like to DELETE?",
         choices: roleListNameOnly,
         when: ({ status }) => status == "Delete Role",
     },
