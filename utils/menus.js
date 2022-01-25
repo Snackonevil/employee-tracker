@@ -69,7 +69,7 @@ async function roleMenu() {
 
 // Manipulate employee data strings to get specific information for query
 function parseEmployeeData(data) {
-    let employee = {
+    const employee = {
         id: data.replaceAll(",", "").split(" ")[1].trim(),
         firstName: data.replaceAll(",", "").split(" ")[2].trim(),
         lastName: data.replaceAll(",", "").split(" ")[3].trim(),
@@ -77,9 +77,15 @@ function parseEmployeeData(data) {
     return employee;
 }
 
+// Gets Id from "ID, Name" strings
+function parseOutId(data) {
+    const id = data.replaceAll(",", "").split(" ")[1];
+    return id;
+}
+
 // Function handling Employees menu
 async function employeeMenu() {
-    let {
+    const {
         status,
         firstName,
         lastName,
@@ -91,8 +97,8 @@ async function employeeMenu() {
     } = await inquirer.prompt(employeePrompt);
     switch (status) {
         case "Add Employee":
-            let managerId = manager.replaceAll(",", "").split(" ")[1];
-            let roleId = role.replaceAll(",", "").split(" ")[1];
+            let managerId = parseOutId(manager);
+            let roleId = parseOutId(role);
             await Employees.add(firstName, lastName, roleId, managerId);
             break;
         case "Update Employee":
