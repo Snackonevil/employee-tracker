@@ -104,7 +104,6 @@ async function employeeMenu() {
         case "Update Employee":
             // Parse employee info to further specify query
             let updateEmployee = parseEmployeeData(employeeData);
-            console.log(updateEmployee);
             await Employees.update(
                 updateEmployee.id,
                 updateEmployee.firstName,
@@ -115,7 +114,6 @@ async function employeeMenu() {
         case "Delete Employee":
             confirm == true;
             let deleteEmployee = parseEmployeeData(employeeData);
-            console.log(deleteEmployee);
             await Employees.delete(
                 deleteEmployee.id,
                 deleteEmployee.firstName,

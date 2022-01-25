@@ -8,7 +8,7 @@ const Departments = require("../lib/Departments");
 const Roles = require("../lib/Roles");
 const Employees = require("../lib/Employees");
 
-// Methods to pull lists as arrays
+// Methods to pull lists as arrays for more dynamic prompts
 const deptList = async () => await Departments.getAllAsArray();
 const empList = async () => await Employees.getAllAsArray();
 const roleList = async () => await Roles.getAllAsArray();
