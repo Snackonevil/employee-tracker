@@ -2,7 +2,14 @@
 
 // Init console.table per documentation
 const cTable = require("console.table");
-const { mainMenu, deptMenu, roleMenu, employeeMenu } = require("./utils/menus");
+const inquirer = require("inquirer");
+const {
+    mainMenu,
+    deptMenu,
+    roleMenu,
+    employeeMenu,
+    viewMenu,
+} = require("./utils/menus");
 
 // Import MySQL connection in order to end it on Exit
 const db = require("./db/connection");
@@ -36,7 +43,8 @@ async function init() {
                 await employeeMenu();
                 break;
             case "View Employees by Department":
-                // await Employees.showManager();
+                const department = await viewMenu();
+                await Employees.showByDepartment(department);
                 await employeeMenu();
                 break;
             case "View Employees by Manager":

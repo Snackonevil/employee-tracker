@@ -253,4 +253,13 @@ const employeePrompt = [
     },
 ];
 
-module.exports = { main, deptPrompt, rolePrompt, employeePrompt };
+const viewPrompt = [
+    {
+        type: "list",
+        name: "department",
+        message: "Which department would you like to view?",
+        choices: deptList,
+    },
+];
+
+module.exports = { main, deptPrompt, rolePrompt, employeePrompt, viewPrompt };

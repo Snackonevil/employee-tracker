@@ -9,6 +9,7 @@ const {
     deptPrompt,
     rolePrompt,
     employeePrompt,
+    viewPrompt,
 } = require("./menuContent");
 
 // Import objects for query methods
@@ -125,4 +126,9 @@ async function employeeMenu() {
     }
 }
 
-module.exports = { mainMenu, deptMenu, roleMenu, employeeMenu };
+async function viewMenu() {
+    const { view } = await inquirer.prompt(viewPrompt);
+    return view;
+}
+
+module.exports = { mainMenu, deptMenu, roleMenu, employeeMenu, viewMenu };
