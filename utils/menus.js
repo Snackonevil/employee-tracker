@@ -127,8 +127,8 @@ async function employeeMenu() {
 }
 
 async function viewMenu() {
-    const { view } = await inquirer.prompt(viewPrompt);
-    return view;
+    const { department } = await inquirer.prompt(viewPrompt);
+    return department;
 }
 
 module.exports = { mainMenu, deptMenu, roleMenu, employeeMenu, viewMenu };

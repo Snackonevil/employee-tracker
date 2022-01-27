@@ -11,7 +11,7 @@ GitHub: [Snackonevil](https://github.com/Snackonevil)
 
 Command Line application to manage employees, roles, departments, and managers with a MySQL database.
 
-[CODE](https://github.com/Snackonevil/taking-care-of-business) | Walkthrough
+[CODE](https://github.com/Snackonevil/taking-care-of-business) | [Walkthrough Video](https://watch.screencastify.com/v/5Uch8k0x9QWPP0lobRtL)
 
 ---
 
@@ -33,12 +33,23 @@ This app uses the following Node.js and the following modules:
 -   [Inquirer package](https://www.npmjs.com/package/inquirer)
 -   [console.table package](https://www.npmjs.com/package/console.table)
 
-`npm run initDatabase` to establish schema and seed tables,  
-`npm run start` to initialize app
+Create and seed database:
+
+```
+npm run initDatabase
+```
+
+Initialize App:
+
+```
+npm run start
+```
 
 ---
 
 ## Usage
+
+![Screenshot](./img/taking-care-of-business-screenshot.PNG)
 
 ---
 
