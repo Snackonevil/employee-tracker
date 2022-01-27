@@ -2,7 +2,6 @@
 
 // Init console.table per documentation
 const cTable = require("console.table");
-const inquirer = require("inquirer");
 const {
     mainMenu,
     deptMenu,
